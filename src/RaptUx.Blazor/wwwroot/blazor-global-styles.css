@@ -46,17 +46,37 @@
     color: var(--text-white) !important;
 }
 
-.lpx-menu-item-link {
+.lpx-menu-item-icon {
     color: var(--text-black) !important;
+}
+
+.lpx-menu-item-link.selected .lpx-menu-item-icon {
+    color: var(--text-white) !important;
+}
+
+.lpx-menu-item-link.selected .lpx-menu-item-text {
+    color: var(--text-white) !important;
 }
 
 .menu-collapse-icon {
     display: none;
 }
 
+.outer-menu-item {
+    height: 3.7em;
+}
+
 .title-font {
     font-family: Telegraph-bold;
 }
+
+.lpx-menu-item-link {
+    padding: 0.7em 18px !important;
+    height: 3.7em!important;
+}
+
 .lpx-menu-item-text {
     font-size: 1.2em !important;
+    color: var(--text-black) !important;
+    padding-left: 0.5em;
 }

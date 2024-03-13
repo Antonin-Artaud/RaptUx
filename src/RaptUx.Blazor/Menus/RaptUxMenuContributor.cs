@@ -46,7 +46,7 @@ public class RaptUxMenuContributor : IMenuContributor
                 RaptUxMenus.Home,
                 l["Menu:Home"],
                 "/",
-                icon: "fas fa-home",
+                icon: "icon-name-home",
                 order: 0
             )
         );
@@ -57,7 +57,7 @@ public class RaptUxMenuContributor : IMenuContributor
                 RaptUxMenus.Challenges,
                 l["Menu:Challenges"],
                 "/challenges",
-                icon: "fas fa-rocket",
+                icon: "icon-name-library_books",
                 order: 1
             )
         );
@@ -68,7 +68,7 @@ public class RaptUxMenuContributor : IMenuContributor
                 RaptUxMenus.Courses,
                 l["Menu:Courses"],
                 "/courses",
-                icon: "fas fa-rocket",
+                icon: "icon-name-school",
                 order: 2
             )
         );
@@ -79,7 +79,7 @@ public class RaptUxMenuContributor : IMenuContributor
                 RaptUxMenus.Profile,
                 l["Menu:Profile"],
                 "/my-profile",
-                icon: "fas fa-user",
+                icon: "icon-name-person",
                 order: 3
             ).RequireAuthenticated()
         );

@@ -1,5 +1,6 @@
 ﻿@using Volo.Abp.AspNetCore.Components.Web.LeptonXLiteTheme.Themes.LeptonXLite.Navigation;
 @using Volo.Abp.DependencyInjection
+@inject IJSRuntime jsRuntime
 
 @inherits MainMenu
 @attribute [ExposeServices(typeof(MainMenu))]
@@ -10,4 +11,13 @@
     <li class="outer-menu-item title-font">
         <MainMenuItem Menu="Menu" MenuItem="menuItemViewModel"></MainMenuItem>
     </li>
+}
+
+@code
+{
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        jsRuntime.InvokeAsync<object>("setIcons").ConfigureAwait(false);
+    }
 }
