@@ -1,0 +1,13 @@
+﻿@using Volo.Abp.AspNetCore.Components.Web.LeptonXLiteTheme.Themes.LeptonXLite.Navigation;
+@using Volo.Abp.DependencyInjection
+
+@inherits MainMenu
+@attribute [ExposeServices(typeof(MainMenu))]
+@attribute [Dependency(ReplaceServices = true)]
+
+@foreach (MenuItemViewModel menuItemViewModel in Menu.Items)
+{
+    <li class="outer-menu-item title-font">
+        <MainMenuItem Menu="Menu" MenuItem="menuItemViewModel"></MainMenuItem>
+    </li>
+}

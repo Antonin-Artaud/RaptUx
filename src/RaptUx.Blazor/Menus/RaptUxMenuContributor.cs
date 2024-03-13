@@ -65,11 +65,22 @@ public class RaptUxMenuContributor : IMenuContributor
         context.Menu.Items.Insert(
             2,
             new ApplicationMenuItem(
+                RaptUxMenus.Courses,
+                l["Menu:Courses"],
+                "/courses",
+                icon: "fas fa-rocket",
+                order: 2
+            )
+        );
+        
+        context.Menu.Items.Insert(
+            3,
+            new ApplicationMenuItem(
                 RaptUxMenus.Profile,
                 l["Menu:Profile"],
                 "/my-profile",
                 icon: "fas fa-user",
-                order: 2
+                order: 3
             ).RequireAuthenticated()
         );
 

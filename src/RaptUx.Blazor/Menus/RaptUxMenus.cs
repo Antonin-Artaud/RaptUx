@@ -6,7 +6,5 @@ public class RaptUxMenus
     public const string Home = Prefix + ".Home";
     public const string Profile = Prefix + ".Profile";
     public const string Challenges = Prefix + ".Challenges";
-
-    //Add your menu items here...
-
+    public const string Courses = ".Courses";
 }

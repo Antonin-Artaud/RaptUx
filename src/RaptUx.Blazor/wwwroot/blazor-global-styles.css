@@ -1,3 +1,15 @@
+:root {
+    --menu-bg-color: #F9F9F9;
+    --dark-purple : #9F36F6;
+    --text-black : #020617;
+    --text-white : #FFFFFF;
+}
+
+@font-face {
+    font-family: Telegraph-bold;
+    src: url("fonts/PPTelegraf-UltraBold.otf");
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -15,4 +27,36 @@
     position: absolute;
     right: 0.75rem;
     top: 0.5rem;
+}
+
+.lpx-scroll-container, #lpx-sidebar, .lpx-logo-container, .lpx-sidebar-container .lpx-sidebar .lpx-nav .lpx-nav-menu {
+    background-color: var(--menu-bg-color) !important;
+}
+
+.lpx-logo-container {
+    margin-top: 3vh;
+}
+
+#desktop-sidebar {
+    margin-top: 5vh;
+}
+
+.lpx-menu-item-link.selected {
+    background-color: var(--dark-purple) !important;
+    color: var(--text-white) !important;
+}
+
+.lpx-menu-item-link {
+    color: var(--text-black) !important;
+}
+
+.menu-collapse-icon {
+    display: none;
+}
+
+.title-font {
+    font-family: Telegraph-bold;
+}
+.lpx-menu-item-text {
+    font-size: 1.2em !important;
 }
