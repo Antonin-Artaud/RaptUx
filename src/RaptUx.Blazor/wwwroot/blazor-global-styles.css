@@ -3,6 +3,12 @@
     --dark-purple : #9F36F6;
     --text-black : #020617;
     --text-white : #FFFFFF;
+    --light-purple-color: #CD9BF5;
+    --yellow-color : #F4D955;
+}
+
+body {
+    color: var(--text-black);
 }
 
 @font-face {
@@ -67,7 +73,7 @@
 }
 
 .title-font {
-    font-family: Telegraph-bold;
+    font-family: Telegraph-bold, sans-serif;
 }
 
 .lpx-menu-item-link {
@@ -79,4 +85,16 @@
     font-size: 1.2em !important;
     color: var(--text-black) !important;
     padding-left: 0.5em;
+}
+
+.card-body , .card-body .btn {
+    color: var(--text-black)!important;
+}
+
+.light-purple-bg {
+    background-color: var(--light-purple-color);
+}
+
+.yellow-bg {
+    background-color: var(--yellow-color);
 }
