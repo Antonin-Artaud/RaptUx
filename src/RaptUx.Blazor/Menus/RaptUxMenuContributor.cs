@@ -85,6 +85,18 @@ public class RaptUxMenuContributor : IMenuContributor
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
         administration.SetSubItemOrder(SettingManagementMenus.GroupName, 3);
 
+        administration.Items.Add(new ApplicationMenuItem(
+            "Grade",
+            "Grades",
+            icon: "fa fa-book"
+        ).AddItem(
+            new ApplicationMenuItem(
+                "Grade",
+                "Grades",
+                url: "/grades"
+            )
+        ));
+        
         return Task.CompletedTask;
     }
 

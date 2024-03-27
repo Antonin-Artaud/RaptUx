@@ -391,6 +391,39 @@ namespace RaptUx.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppChallenges",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Context = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Details = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    AvailabilityDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserIds = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppChallenges", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppGrades",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppGrades", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictApplications",
                 columns: table => new
                 {
@@ -678,6 +711,50 @@ namespace RaptUx.Migrations
                         name: "FK_AbpUserTokens_AbpUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AbpUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppCourses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Link = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ChallengeEntityId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppCourses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppCourses_AppChallenges_ChallengeEntityId",
+                        column: x => x.ChallengeEntityId,
+                        principalTable: "AppChallenges",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppProjects",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ImageBase64 = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Link = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Likes = table.Column<int>(type: "int", nullable: false),
+                    ChallengeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppProjects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppProjects_AppChallenges_ChallengeId",
+                        column: x => x.ChallengeId,
+                        principalTable: "AppChallenges",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -977,6 +1054,16 @@ namespace RaptUx.Migrations
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppCourses_ChallengeEntityId",
+                table: "AppCourses",
+                column: "ChallengeEntityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppProjects_ChallengeId",
+                table: "AppProjects",
+                column: "ChallengeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
                 table: "OpenIddictApplications",
                 column: "ClientId");
@@ -1080,6 +1167,15 @@ namespace RaptUx.Migrations
                 name: "AbpUserTokens");
 
             migrationBuilder.DropTable(
+                name: "AppCourses");
+
+            migrationBuilder.DropTable(
+                name: "AppGrades");
+
+            migrationBuilder.DropTable(
+                name: "AppProjects");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
 
             migrationBuilder.DropTable(
@@ -1099,6 +1195,9 @@ namespace RaptUx.Migrations
 
             migrationBuilder.DropTable(
                 name: "AbpUsers");
+
+            migrationBuilder.DropTable(
+                name: "AppChallenges");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictAuthorizations");

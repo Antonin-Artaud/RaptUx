@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RaptUx.Entities.ChallengeAggregate;
-using RaptUx.Entities.TagAggregate;
-using RaptUx.Entities.UserAggregate;
+using RaptUx.Entities.ChallengeEntities;
+using RaptUx.Entities.CoursesEntities;
+using RaptUx.Entities.GradeEntities;
+using RaptUx.Entities.ProjectEntities;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -50,14 +52,16 @@ public class RaptUxDbContext :
     public DbSet<IdentityLinkUser> LinkUsers { get; set; }
     public DbSet<IdentityUserDelegation> UserDelegations { get; set; }
 
-    public DbSet<User> CustomUsers { get; set; }
-    public DbSet<Challenge> Challenges { get; set; }
-    public DbSet<Tag> Tags { get; set; }
-
     // Tenant Management
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
+    // Domain Entities
+    public DbSet<ChallengeEntity> Challenges { get; set; }
+    public DbSet<CourseEntity> Courses { get; set; }
+    public DbSet<GradeEntity> Grades { get; set; }
+    public DbSet<ProjectEntity> Projects { get; set; }
+    
     #endregion
 
     public RaptUxDbContext(DbContextOptions<RaptUxDbContext> options)
@@ -78,27 +82,53 @@ public class RaptUxDbContext :
         builder.ConfigureOpenIddict();
         builder.ConfigureFeatureManagement();
         builder.ConfigureTenantManagement();
-
-        builder.Entity<User>(b =>
+        
+        builder.Entity<ChallengeEntity>(b =>
         {
-            b.ToTable(AbpIdentityDbProperties.DbTablePrefix + nameof(Users), AbpIdentityDbProperties.DbSchema);
+            b.ToTable(RaptUxConsts.DbTablePrefix + "Challenges", RaptUxConsts.DbSchema);
+            b.ConfigureByConvention();
+            
+            b.Property(c => c.ImageUrl).IsRequired().HasMaxLength(255);
+            b.Property(c => c.Title).IsRequired().HasMaxLength(255);
+            b.Property(c => c.Description).IsRequired().HasMaxLength(255);
+            b.Property(c => c.Context).IsRequired().HasMaxLength(255);
+            b.Property(c => c.Details).IsRequired().HasMaxLength(255);
+            b.Property(c => c.Category).IsRequired().HasMaxLength(255);
+            b.Property(c => c.AvailabilityDate).IsRequired();
 
-            b.HasMany(u => u.Challenges).WithMany(c => c.Users);
-            b.HasMany(u => u.Tags).WithMany(c => c.Users);
+            b.HasMany(c => c.Courses);
+            b.HasMany(c => c.Projects);
         });
         
-        builder.Entity<Challenge>(b =>
+        builder.Entity<CourseEntity>(b =>
         {
-            b.ToTable(nameof(Challenges), AbpIdentityDbProperties.DbSchema);
-
-            b.HasMany(c => c.Users).WithMany(u => u.Challenges);
+            b.ToTable(RaptUxConsts.DbTablePrefix + "Courses", RaptUxConsts.DbSchema);
+            b.ConfigureByConvention();
+            
+            b.Property(c => c.Title).IsRequired().HasMaxLength(255);
+            b.Property(c => c.Link).IsRequired().HasMaxLength(255);
+            b.Property(c => c.Description).IsRequired().HasMaxLength(255);
         });
         
-        builder.Entity<Tag>(b =>
+        builder.Entity<GradeEntity>(b =>
         {
-            b.ToTable(nameof(Tags), AbpIdentityDbProperties.DbSchema);
-
-            b.HasMany(t => t.Users).WithMany(u => u.Tags);
+            b.ToTable(RaptUxConsts.DbTablePrefix + "Grades", RaptUxConsts.DbSchema);
+            b.ConfigureByConvention();
+            
+            b.Property(c => c.Title).IsRequired().HasMaxLength(255);
+            b.Property(c => c.Description).IsRequired().HasMaxLength(255);
+        });
+        
+        builder.Entity<ProjectEntity>(b =>
+        {
+            b.ToTable(RaptUxConsts.DbTablePrefix + "Projects", RaptUxConsts.DbSchema);
+            b.ConfigureByConvention();
+            
+            b.Property(c => c.OwnerId).IsRequired();
+            b.Property(c => c.ImageBase64).IsRequired().HasMaxLength(255);
+            b.Property(c => c.Link).IsRequired().HasMaxLength(255);
+            b.Property(c => c.Description).IsRequired().HasMaxLength(255);
+            b.Property(c => c.Likes).IsRequired();
         });
     }
 }
