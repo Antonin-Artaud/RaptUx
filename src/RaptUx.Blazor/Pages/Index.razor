@@ -1,16 +1,8 @@
 ﻿@page "/"
-@using Volo.Abp.AspNetCore.Components.Web.Theming.Layout
-@using BreadcrumbItem = Volo.Abp.BlazoriseUI.BreadcrumbItem
 @using RaptUx.Blazor.Components
-
 @inherits RaptUxComponentBase
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject PageLayout PageLayout
-
-@{
-    PageLayout.BreadcrumbItems.Add(new BreadcrumbItem("Home", "/"));
-}
 
 <title>LearnUX - Tableau de bord</title>
 <section id="home">
@@ -36,7 +28,5 @@
             <ChallengesSectionComponent/>
             <RecommendationsSectionComponent/>
         }
-
     </div>
-
 </section>

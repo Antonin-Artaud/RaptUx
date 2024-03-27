@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace RaptUx.Blazor.Pages.Course;
+namespace RaptUx.Blazor.Pages.Account;
 
-public class Course : PageModel
+public class Login : PageModel
 {
     public void OnGet()
     {

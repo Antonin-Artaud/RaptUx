@@ -7,13 +7,19 @@
     --yellow-color : #F4D955;
 }
 
-body {
-    color: var(--text-black);
-}
-
 @font-face {
     font-family: Telegraph-bold;
     src: url("fonts/PPTelegraf-UltraBold.otf");
+}
+
+@font-face {
+    font-family: Garet-book;
+    src: url("fonts/Garet-Book.woff");
+}
+
+body {
+    color: var(--text-black);
+    font-family: Garet-book, sans-serif;
 }
 
 #blazor-error-ui {
@@ -97,4 +103,38 @@ body {
 
 .yellow-bg {
     background-color: var(--yellow-color);
+}
+
+.lpx-topbar {
+    font-family: Garet-book, sans-serif !important;
+}
+
+.lpx-topbar-content {
+    width: 100%;
+    padding: 1em;
+}
+
+.login-button {
+    border-radius: 15px;
+    color: black;
+    background: rgb(221,190,247);
+    background: linear-gradient(90deg, rgba(221,190,247,1) 0%, rgba(159,54,246,1) 100%);
+    padding: 5px;
+    text-align: center;
+}
+
+.register-button {
+    border-radius: 15px;
+    color: black;
+    background-color: var(--yellow-color);
+    padding: 5px;
+    text-align: center;
+}
+
+.global-search {
+    background-color: #E1E3EB;
+    border: none;
+    border-radius: 15px;
+    padding: 5px 5px 5px 15px;
+    width: 100%;
 }

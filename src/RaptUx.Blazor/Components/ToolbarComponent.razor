@@ -1,0 +1,20 @@
+﻿@using Volo.Abp.AspNetCore.Components.Web.LeptonXLiteTheme.Themes.LeptonXLite;
+@using Volo.Abp.DependencyInjection
+
+@inherits ToolbarItemsComponent
+@attribute [ExposeServices(typeof(ToolbarItemsComponent))]
+@attribute [Dependency(ReplaceServices = true)]
+
+<div class="row" style="width: 100%">
+    <div class="col-2"></div>
+    <div class="col-2">
+        <input class="global-search" placeholder="Rechercher" />
+    </div>
+    <div class="col-6"></div>
+    <div class="col-1">
+        <a class="nav-link register-button" role="button" href="/Account/Register">Inscription</a>
+    </div>
+    <div class="col-1">
+        <a class="nav-link login-button" role="button" href="/Account/Login">Connexion</a>
+    </div>
+</div>
