@@ -60,4 +60,12 @@
     <ProjectReference Include="..\RaptUx.EntityFrameworkCore\RaptUx.EntityFrameworkCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\images\logo\leptonx\logo-dark-thumbnail.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\logo\leptonx\logo-dark.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\logo\leptonx\logo-light-thumbnail.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\logo\leptonx\logo-light.png" />
+    <_ContentIncludedByDefault Remove="Components\ToolbarComponent.razor" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,64 @@
-/* Your Global Styles */
+:root {
+    --menu-bg-color: #F9F9F9;
+    --dark-purple : #9F36F6;
+    --text-black : #020617;
+    --text-white : #FFFFFF;
+    --light-purple-color: #CD9BF5;
+    --yellow-color : #F4D955;
+}
 
 :root .lpx-brand-logo {
-    --lpx-logo: url('/images/logo/leptonx/logo-light.png');
-    --lpx-logo-icon: url('/images/logo/leptonx/logo-light-thumbnail.png');
+    --lpx-logo: url('assets/logo/logo_violet.svg');
+    --lpx-logo-icon: url('assets/logo/logo_violet.svg');
+}
+
+@font-face {
+    font-family: Telegraph-bold;
+    src: url("assets/fonts/PPTelegraf-UltraBold.otf");
+}
+
+@font-face {
+    font-family: Garet-book;
+    src: url("assets/fonts/Garet-Book.woff");
+}
+
+body {
+    color: var(--text-black) !important;
+    font-family: Garet-book, sans-serif;
+}
+
+.yellow-color {
+    color: var(--yellow-color);
+}
+
+.violet-color {
+    color: var(--dark-purple);
+}
+
+.yellow-bg {
+    background-color: var(--yellow-color) !important;
+}
+
+.title-font {
+    font-family: Telegraph-bold, sans-serif;
+}
+
+.card-body {
+    color: var(--text-black);
+}
+
+.lpx-content-container  {
+    background-image: url("./assets/images/auth_bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.auth-form-button {
+    width: 100%;
+    border: none;
+}
+
+.auth-card {
+    border-radius: 15px;
+    filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.14));
 }
