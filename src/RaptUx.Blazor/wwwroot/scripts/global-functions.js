@@ -5,7 +5,10 @@
         let element = elements[i];
         let logoContainer = element.children[0];
         
-        logoContainer.textContent = logoContainer.classList[1].replace("icon-name-", '');
+        if (logoContainer.classList[1] != null) {
+            logoContainer.textContent = logoContainer.classList[1].replace("icon-name-", '');
+        }
+        
         logoContainer.className += " material-symbols-outlined";
         logoContainer.style.fontSize = "2em";
     }

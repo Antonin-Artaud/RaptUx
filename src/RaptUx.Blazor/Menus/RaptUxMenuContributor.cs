@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using RaptUx.Localization;
 using RaptUx.MultiTenancy;
 using Volo.Abp.Account.Localization;
@@ -37,8 +38,11 @@ public class RaptUxMenuContributor : IMenuContributor
 
     private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
-        var administration = context.Menu.GetAdministration();
-        var l = context.GetLocalizer<RaptUxResource>();
+        ApplicationMenuItem administration = context.Menu.GetAdministration();
+
+        administration.Icon = "icon-name-admin_panel_settings";
+        
+        IStringLocalizer l = context.GetLocalizer<RaptUxResource>();
 
         context.Menu.Items.Insert(
             0,
