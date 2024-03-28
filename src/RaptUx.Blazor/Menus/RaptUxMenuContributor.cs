@@ -72,29 +72,18 @@ public class RaptUxMenuContributor : IMenuContributor
                 order: 2
             )
         );
-        
-        context.Menu.Items.Insert(
-            3,
-            new ApplicationMenuItem(
-                RaptUxMenus.Profile,
-                l["Menu:Profile"],
-                "/my-profile",
-                icon: "icon-name-person",
-                order: 3
-            ).RequireAuthenticated()
-        );
 
-        if (MultiTenancyConsts.IsEnabled)
-        {
-            administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
-        }
-        else
-        {
-            administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
-        }
+        // if (MultiTenancyConsts.IsEnabled)
+        // {
+        //     administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
+        // }
+        // else
+        // {
+        //     administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
+        // }
 
-        administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
-        administration.SetSubItemOrder(SettingManagementMenus.GroupName, 3);
+        // administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
+        // administration.SetSubItemOrder(SettingManagementMenus.GroupName, 3);
 
         return Task.CompletedTask;
     }

@@ -1,0 +1,58 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.Account.Localization
+@model RaptUx.Pages.Account.CustomRegisterModel
+@inject IHtmlLocalizer<AccountResource> L
+
+<div class="text-center">
+    <h1 class="title-font">Poussez les portes de l’expérience utilisateur et développez <span class="violet-color">vos compétences.</span></h1>
+    <div class="card mt-3 shadow-sm rounded">
+        <div class="card-body p-5">
+            <img class="mb-1" style="width: 50%" src="../Pages/Account/assets/logo/logo_violet.svg" alt="LearnUX logo" />
+            <h6>Nouveau sur la platforme ? <span class="yellow-color">Inscrivez-vous.</span> </h6>
+            
+            <form method="post" class="mt-4" style="text-align: left !important;">
+                @if (Model.EnableLocalRegister || Model.IsExternalLogin)
+                {
+                    <abp-input asp-for="Input.UserName" auto-focus="true"/>
+                }
+
+                @if (Model.EnableLocalRegister || Model.IsExternalLogin)
+                {
+                    <abp-input asp-for="Input.EmailAddress"/>
+                }
+
+                @if (!Model.IsExternalLogin && Model.EnableLocalRegister)
+                {
+                    <abp-input asp-for="Input.Password"/>
+                }
+
+                @if (Model.EnableLocalRegister || Model.IsExternalLogin)
+                {
+                    <div class="d-grid gap-2">
+                        <abp-button button-type="Primary" type="submit" class="btn-lg mt-4 purple-bg auth-form-button">@L["Register"]</abp-button>
+                    </div>
+                }
+
+            </form>
+
+            @if (!Model.IsExternalLogin && Model.VisibleExternalProviders.Any())
+            {
+                <div class="mt-2">
+                    <h5>@L["OrRegisterWith"]</h5>
+                    <form asp-page="./Login" asp-page-handler="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" asp-route-returnUrlHash="@Model.ReturnUrlHash" method="post">
+                        @foreach (var provider in Model.VisibleExternalProviders)
+                        {
+                            <button type="submit" class="btn btn-primary m-1" name="provider" value="@provider.AuthenticationScheme" title="@L["RegisterUsingYourProviderAccount", provider.DisplayName]">@provider.DisplayName</button>
+                        }
+                    </form>
+                </div>
+            }
+
+        </div>
+    </div>
+    <strong>
+        @L["AlreadyRegistered"]
+        <a href="@Url.Page("./Login", new {returnUrl = Model.ReturnUrl, returnUrlHash = Model.ReturnUrlHash})" class="text-decoration-none violet-color">@L["Login"]</a>
+    </strong>
+</div>

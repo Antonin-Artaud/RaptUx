@@ -15,15 +15,15 @@
 @inject Volo.Abp.Settings.ISettingProvider SettingProvider
 
 <div class="text-center">
-    <h1 class="title-font">Poussez les portes de l’expérience utilisateur et développez <span class="violet-color">vos compétences.</span></h1>
+    <h1 class="title-font">Chaque mois, de nouveaux défis et ressources pour développer <span class="violet-color">vos compétences.</span></h1>
     <div class="card auth-card mt-3 shadow-sm rounded">
-        <div class="card-body abp-background p-5">
-            <img class="mb-4" src="assets/logo/logo_yellow.svg" alt="LearnUX logo" />
-            <p>Bienvenue ! Connectez-vous.</p>
+        <div class="card-body abp-background">
+            <img class="mb-1" style="width: 50%" src="../Pages/Account/assets/logo/logo_yellow.svg" alt="LearnUX logo" />
+            <h6>Bienvenue ! <span class="violet-color">Connectez-vous.</span></h6>
 
             @if (Model.EnableLocalLogin)
             {
-                <form method="post" class="mt-4 text-left">
+                <form method="post" class="mt-4" style="text-align: left !important;">
                     <input asp-for="ReturnUrl"/>
                     <input asp-for="ReturnUrlHash"/>
                     <div class="form-group mb-2">
@@ -34,14 +34,8 @@
                         <input asp-for="LoginInput.Password" class="form-control" placeholder="Mot de passe"/>
                         <span asp-validation-for="LoginInput.Password" class="text-danger"></span>
                     </div>
-                    <abp-row>
-                        <abp-column>
-                            <abp-input asp-for="LoginInput.RememberMe" class="mb-4"/>
-                        </abp-column>
-                        <abp-column class="text-right">
-                            <a href="@Url.Page("./ForgotPassword", new {returnUrl = Model.ReturnUrl, returnUrlHash = Model.ReturnUrlHash})">@L["ForgotPassword"]</a>
-                        </abp-column>
-                    </abp-row>
+                    <a class="black-color" href="@Url.Page("./ForgotPassword", new {returnUrl = Model.ReturnUrl, returnUrlHash = Model.ReturnUrlHash})">@L["ForgotPassword"]</a>
+                    <abp-input asp-for="LoginInput.RememberMe" class="text-black"/>
                     <abp-button type="submit" button-type="Primary" name="Action" value="Login" class="btn-block btn-lg mt-3 yellow-bg auth-form-button">@L["Login"]</abp-button>
                     @if (Model.ShowCancelButton)
                     {

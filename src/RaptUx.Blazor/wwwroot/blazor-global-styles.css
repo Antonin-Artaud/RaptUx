@@ -107,6 +107,7 @@ body {
 
 .lpx-topbar {
     font-family: Garet-book, sans-serif !important;
+    border-radius: 0 !important;
 }
 
 .lpx-topbar-content {
@@ -115,26 +116,32 @@ body {
 }
 
 .login-button {
-    border-radius: 15px;
+    border-radius: 20px;
     color: black;
     background: rgb(221,190,247);
     background: linear-gradient(90deg, rgba(221,190,247,1) 0%, rgba(159,54,246,1) 100%);
-    padding: 5px;
+    padding: 10px 5px 10px 5px;
     text-align: center;
 }
 
 .register-button {
-    border-radius: 15px;
+    border-radius: 20px;
     color: black;
     background-color: var(--yellow-color);
-    padding: 5px;
+    padding: 10px 5px 10px 5px;
     text-align: center;
 }
 
 .global-search {
     background-color: #E1E3EB;
     border: none;
-    border-radius: 15px;
-    padding: 5px 5px 5px 15px;
+    border-radius: 20px;
+    padding: 10px 5px 10px 15px;
     width: 100%;
+}
+
+.profile_pic {
+    height: 3em;
+    border-radius: 10em;
+    width: 3em;
 }
