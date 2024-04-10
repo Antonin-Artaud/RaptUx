@@ -70,6 +70,10 @@
     <_ContentIncludedByDefault Remove="Components\Breadcrumbs\Breadcrumbs.razor" />
     <_ContentIncludedByDefault Remove="Components\Breadcrumbs\CustomBreadcrumbs.razor" />
     <_ContentIncludedByDefault Remove="Pages\Account\Login.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\tags\lvl1.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\tags\lvl2.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\tags\lvl3.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\tags\lvl4.svg" />
   </ItemGroup>
 
 

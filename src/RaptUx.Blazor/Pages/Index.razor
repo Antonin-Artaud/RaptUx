@@ -21,12 +21,71 @@
                     </div>
                 </CardBody>
             </Card>
-            <section id="whatisit" class="mt-5">
+            <section id="what-is-it" class="mt-5">
                 <h1 class="title-font">Learn UX c'est quoi ?</h1>
                 <p>Learn UX est une plateforme d’apprentissage où tout le monde peut participer. Les débutants, les experts ou même les curieux de design peuvent participer et user de leur créativité dans différents défis ludique et amusants. Alors n’aies pas peur de venir te challenger, tu seras peut-être le prochain récompensé.</p>
             </section>
             <ChallengesSectionComponent/>
             <RecommendationsSectionComponent/>
         }
+        else
+        {
+            <div class="user-card" style="padding: 1.5em 5em">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-1">
+                                <img class="profile_pic" src="images/user_pic.jpg" alt="user_pic"/>
+                            </div>
+                            <div class="col-5">
+                                <h2>Bonjour <strong>@CurrentUser.UserName</strong></h2>
+                                <p>Prêt(e) à rugir l’expérience utilisateur ?</p>
+                            </div>
+                            <div class="col-6 row content-right">
+                                @for (int i = 0; i < TagUris.Count; i++)
+                                {
+                                    <div class="col-3 content-right">
+                                        <img src="@TagUris[i]" alt="@($"lvl{i + 1}")"/>
+                                        <p>Niveau @(i + 1)</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <a type="button">Mon profil</a>
+                            </div>
+                            <div class="col-6">
+                                <a type="button">Mon classement</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <a type="button">Defis en cours</a>
+                            </div>
+                            <div class="col-6">
+                                <a type="button">Mes badges</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </section>
+
+@code {
+
+    private const string Prefix = "svgs/tags/";
+
+    public List<string> TagUris { get; set; } =
+    [
+        $"{Prefix}lvl1.svg",
+        $"{Prefix}lvl2.svg",
+        $"{Prefix}lvl3.svg",
+        $"{Prefix}lvl4.svg"
+    ];
+
+}

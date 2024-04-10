@@ -5,6 +5,7 @@
     --text-white : #FFFFFF;
     --light-purple-color: #CD9BF5;
     --yellow-color : #F4D955;
+    --grey-color: #E1E3EB;
 }
 
 @font-face {
@@ -137,11 +138,21 @@ body {
 }
 
 .global-search {
-    background-color: #E1E3EB;
+    background-color: var(--grey-color);
     border: none;
     border-radius: 20px;
     padding: 10px 5px 10px 15px;
     width: 100%;
+}
+
+.user-card {
+    border: 1px solid var(--grey-color);
+    border-radius: 20px;
+}
+
+.user-card .profile_pic{
+    width: 5em!important;
+    height: 5em !important;
 }
 
 .profile_pic {
@@ -152,4 +163,8 @@ body {
 
 .bold {
     font-weight: bold;
+}
+
+.content-right {
+    justify-content: right;
 }
