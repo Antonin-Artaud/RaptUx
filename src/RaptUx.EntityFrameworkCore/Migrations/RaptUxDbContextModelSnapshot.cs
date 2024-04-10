@@ -24,42 +24,88 @@ namespace RaptUx.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ChallengeUser", b =>
+            modelBuilder.Entity("RaptUx.Entities.ChallengeEntities.ChallengeEntity", b =>
                 {
-                    b.Property<int>("ChallengesId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UsersId")
+                    b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("ChallengesId", "UsersId");
+                    b.Property<DateTime>("AvailabilityDate")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("UsersId");
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
-                    b.ToTable("ChallengeUser");
-                });
+                    b.Property<string>("Context")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
-            modelBuilder.Entity("RaptUx.Entities.ChallengeAggregate.Challenge", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Details")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("Brief")
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("UserIds")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("LimitedTime")
-                        .HasColumnType("datetime2");
+                    b.HasKey("Id");
+
+                    b.ToTable("AppChallenges", (string)null);
+                });
+
+            modelBuilder.Entity("RaptUx.Entities.CoursesEntities.CourseEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ChallengeEntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Challenges", (string)null);
+                    b.HasIndex("ChallengeEntityId");
+
+                    b.ToTable("AppCourses", (string)null);
                 });
 
-            modelBuilder.Entity("RaptUx.Entities.TagAggregate.Tag", b =>
+            modelBuilder.Entity("RaptUx.Entities.GradeEntities.GradeEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,27 +113,60 @@ namespace RaptUx.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("AppGrades", (string)null);
                 });
 
-            modelBuilder.Entity("TagUser", b =>
+            modelBuilder.Entity("RaptUx.Entities.ProjectEntities.ProjectEntity", b =>
                 {
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UsersId")
+                    b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("TagsId", "UsersId");
+                    b.Property<Guid?>("ChallengeEntityId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("UsersId");
+                    b.Property<Guid>("ChallengeId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.ToTable("TagUser");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("ImageBase64")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChallengeEntityId");
+
+                    b.HasIndex("ChallengeId");
+
+                    b.ToTable("AppProjects", (string)null);
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -800,11 +879,6 @@ namespace RaptUx.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletionTime");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(256)
@@ -860,10 +934,6 @@ namespace RaptUx.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("MyProperty")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(64)
@@ -939,10 +1009,6 @@ namespace RaptUx.Migrations
                     b.HasIndex("UserName");
 
                     b.ToTable("AbpUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Volo.Abp.Identity.IdentityUserClaim", b =>
@@ -1831,43 +1897,26 @@ namespace RaptUx.Migrations
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
                 });
 
-            modelBuilder.Entity("RaptUx.Entities.UserAggregate.User", b =>
+            modelBuilder.Entity("RaptUx.Entities.CoursesEntities.CourseEntity", b =>
                 {
-                    b.HasBaseType("Volo.Abp.Identity.IdentityUser");
-
-                    b.ToTable("AbpUsers", (string)null);
-
-                    b.HasDiscriminator().HasValue("User");
+                    b.HasOne("RaptUx.Entities.ChallengeEntities.ChallengeEntity", null)
+                        .WithMany("Courses")
+                        .HasForeignKey("ChallengeEntityId");
                 });
 
-            modelBuilder.Entity("ChallengeUser", b =>
+            modelBuilder.Entity("RaptUx.Entities.ProjectEntities.ProjectEntity", b =>
                 {
-                    b.HasOne("RaptUx.Entities.ChallengeAggregate.Challenge", null)
+                    b.HasOne("RaptUx.Entities.ChallengeEntities.ChallengeEntity", null)
+                        .WithMany("Projects")
+                        .HasForeignKey("ChallengeEntityId");
+
+                    b.HasOne("RaptUx.Entities.ChallengeEntities.ChallengeEntity", "Challenge")
                         .WithMany()
-                        .HasForeignKey("ChallengesId")
+                        .HasForeignKey("ChallengeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RaptUx.Entities.UserAggregate.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TagUser", b =>
-                {
-                    b.HasOne("RaptUx.Entities.TagAggregate.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RaptUx.Entities.UserAggregate.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Challenge");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
@@ -2010,6 +2059,13 @@ namespace RaptUx.Migrations
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RaptUx.Entities.ChallengeEntities.ChallengeEntity", b =>
+                {
+                    b.Navigation("Courses");
+
+                    b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>

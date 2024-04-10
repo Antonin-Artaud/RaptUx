@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RaptUx.Localization;
 using RaptUx.MultiTenancy;
+using RaptUx.Permissions;
+using RaptUx.Permissions.Grades;
 using Volo.Abp.Account.Localization;
 using Volo.Abp.Identity.Blazor;
 using Volo.Abp.Authorization.Permissions;
@@ -85,6 +87,34 @@ public class RaptUxMenuContributor : IMenuContributor
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
         administration.SetSubItemOrder(SettingManagementMenus.GroupName, 3);
 
+        context.Menu.GetAdministration()
+            .AddItem(new ApplicationMenuItem(
+                "Rapt'Ux",
+                "Rapt'Ux Management",
+                icon: "fa fa-book"
+            ).RequirePermissions(GradePermission.Grades.Default).RequireAuthenticated()
+            .AddItem(
+            new ApplicationMenuItem(
+                "Grade",
+                "Grades Management",
+                url: "/grades"
+            )
+        ).RequireAuthenticated()
+        .AddItem(
+            new ApplicationMenuItem(
+                "Course",
+                "Courses Management",
+                url: "/courses"
+            )
+            ).RequireAuthenticated()
+        .AddItem(
+            new ApplicationMenuItem(
+                "challenge",
+                "Challenge Management",
+                url: "/challenge"
+            )
+            ).RequireAuthenticated());
+        
         return Task.CompletedTask;
     }
 
