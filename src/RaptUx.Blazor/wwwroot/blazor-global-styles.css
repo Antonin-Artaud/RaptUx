@@ -1,3 +1,32 @@
+:root {
+    --menu-bg-color: #F9F9F9;
+    --dark-purple : #9F36F6;
+    --text-black : #020617;
+    --text-white : #FFFFFF;
+    --light-purple-color: #CD9BF5;
+    --yellow-color : #F4D955;
+    --grey-color: #E1E3EB;
+}
+
+@font-face {
+    font-family: Telegraph-bold;
+    src: url("fonts/PPTelegraf-UltraBold.otf");
+}
+
+@font-face {
+    font-family: Garet-book;
+    src: url("fonts/Garet-Book.woff");
+}
+
+body {
+    color: var(--text-black);
+    font-family: Garet-book, sans-serif;
+}
+
+.color-white {
+    color: var(--text-white);
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -15,4 +44,127 @@
     position: absolute;
     right: 0.75rem;
     top: 0.5rem;
+}
+
+.lpx-scroll-container, #lpx-sidebar, .lpx-logo-container, .lpx-sidebar-container .lpx-sidebar .lpx-nav .lpx-nav-menu {
+    background-color: var(--menu-bg-color) !important;
+}
+
+.lpx-logo-container {
+    margin-top: 3vh;
+}
+
+#desktop-sidebar {
+    margin-top: 5vh;
+}
+
+.lpx-menu-item-link.selected {
+    background-color: var(--dark-purple) !important;
+    color: var(--text-white) !important;
+}
+
+.lpx-menu-item-icon {
+    color: var(--text-black) !important;
+}
+
+.lpx-menu-item-link.selected .lpx-menu-item-icon {
+    color: var(--text-white) !important;
+}
+
+.lpx-menu-item-link.selected .lpx-menu-item-text {
+    color: var(--text-white) !important;
+}
+
+.menu-collapse-icon {
+    display: none;
+}
+
+.outer-menu-item {
+    height: 3.7em;
+}
+
+.title-font {
+    font-family: Telegraph-bold, sans-serif;
+}
+
+.lpx-menu-item-link {
+    padding: 0.7em 18px !important;
+    height: 3.7em!important;
+}
+
+.lpx-menu-item-text {
+    font-size: 1.2em !important;
+    color: var(--text-black) !important;
+    padding-left: 0.5em;
+}
+
+.card-body , .card-body .btn {
+    color: var(--text-black)!important;
+}
+
+.light-purple-bg {
+    background-color: var(--light-purple-color);
+}
+
+.yellow-bg {
+    background-color: var(--yellow-color);
+}
+
+.lpx-topbar {
+    font-family: Garet-book, sans-serif !important;
+    border-radius: 0 !important;
+}
+
+.lpx-topbar-content {
+    width: 100%;
+    padding: 1em;
+}
+
+.login-button {
+    border-radius: 20px;
+    color: black;
+    background: rgb(221,190,247);
+    background: linear-gradient(90deg, rgba(221,190,247,1) 0%, rgba(159,54,246,1) 100%);
+    padding: 10px 5px 10px 5px;
+    text-align: center;
+}
+
+.register-button {
+    border-radius: 20px;
+    color: black;
+    background-color: var(--yellow-color);
+    padding: 10px 5px 10px 5px;
+    text-align: center;
+}
+
+.global-search {
+    background-color: var(--grey-color);
+    border: none;
+    border-radius: 20px;
+    padding: 10px 5px 10px 15px;
+    width: 100%;
+}
+
+.user-card {
+    border: 1px solid var(--grey-color);
+    border-radius: 20px;
+}
+
+.user-card .profile_pic{
+    width: 5em!important;
+    height: 5em !important;
+}
+
+.profile_pic {
+    height: 3em;
+    border-radius: 10em;
+    width: 3em;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.content-right {
+    justify-content: right;
 }

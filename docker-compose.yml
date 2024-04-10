@@ -4,7 +4,7 @@ services:
     container_name: SqlServer
     image: mcr.microsoft.com/azure-sql-edge:latest
     environment:
-      - MSSQL_USER=sa
+      - MSSQL_USER=SA
       - MSSQL_SA_PASSWORD=2C6A9EE7-FE9E-4A79-BD4C-80C8C484B149
       - ACCEPT_EULA=Y
     ports:
