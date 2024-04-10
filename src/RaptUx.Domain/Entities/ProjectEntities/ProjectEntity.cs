@@ -12,5 +12,6 @@ public class ProjectEntity : Entity<Guid>
     public string Link { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public int Likes { get; set; }
+    public Guid ChallengeId { get; set; }
     public ChallengeEntity Challenge { get; set; }
 }

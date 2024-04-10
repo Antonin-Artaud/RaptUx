@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using RaptUx.Entities.CoursesEntities;
-using RaptUx.Entities.ProjectEntities;
-using Volo.Abp.Domain.Entities;
+using RaptUx.Courses;
+using RaptUx.Projects;
+using Volo.Abp.Application.Dtos;
 
-namespace RaptUx.Entities.ChallengeEntities;
+namespace RaptUx.Challenges;
 
-public class ChallengeEntity : Entity<Guid>
+public class ChallengeDto : EntityDto<Guid>
 {
     public string ImageUrl { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
@@ -17,6 +17,6 @@ public class ChallengeEntity : Entity<Guid>
     public DateTime AvailabilityDate { get; set; }
     
     public IEnumerable<Guid> UserIds { get; set; } = new List<Guid>();
-    public IEnumerable<CourseEntity> Courses { get; set; } = new List<CourseEntity>();
-    public IEnumerable<ProjectEntity> Projects { get; set; } = new List<ProjectEntity>();
+    public IEnumerable<CourseDto> Courses { get; set; } = new List<CourseDto>();
+    public IEnumerable<ProjectDto> Projects { get; set; } = new List<ProjectDto>();
 }

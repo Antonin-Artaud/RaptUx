@@ -129,6 +129,8 @@ public class RaptUxDbContext :
             b.Property(c => c.Link).IsRequired().HasMaxLength(255);
             b.Property(c => c.Description).IsRequired().HasMaxLength(255);
             b.Property(c => c.Likes).IsRequired();
+            
+            b.HasOne(c => c.Challenge).WithMany().HasForeignKey(c => c.ChallengeId);
         });
     }
 }
