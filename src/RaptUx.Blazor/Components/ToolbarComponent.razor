@@ -1,0 +1,54 @@
+﻿@using Microsoft.Extensions.Configuration
+@using Volo.Abp.AspNetCore.Components.Web.LeptonXLiteTheme.Themes.LeptonXLite;
+@using Volo.Abp.DependencyInjection
+@using Volo.Abp.Users
+@inject ICurrentUser CurrentUser
+@inject NavigationManager Navigation
+@inject IConfiguration Configuration
+
+@inherits ToolbarItemsComponent
+@attribute [ExposeServices(typeof(ToolbarItemsComponent))]
+@attribute [Dependency(ReplaceServices = true)]
+
+<div class="row" style="width: 100%">
+    <div class="col-2"></div>
+    <div class="col-2">
+        <input class="global-search" placeholder="Rechercher" />
+    </div>
+    <div class="col-6"></div>
+    @if (!CurrentUser.IsAuthenticated)
+    {
+        <div class="col-1">
+            <a class="nav-link register-button bold" role="button" href="/Account/Register">Inscription</a>
+        </div>
+        <div class="col-1">
+            <a class="nav-link login-button bold text-white" role="button" href="/Account/Login">Connexion</a>
+        </div>
+    } 
+    else
+    {
+        <div class="col-1"></div>
+        <div class="col-1">
+            <Dropdown>
+                <DropdownToggle Style="padding: 0">
+                    <img class="profile_pic" src="images/user_pic.jpg" alt="user_pic"/>
+                </DropdownToggle>
+                <DropdownMenu>
+                    <DropdownItem Clicked="@OnCheckProfile">Mon profil</DropdownItem>
+                    <DropdownDivider/>
+                    <a class="dropdown-item text-danger" href="/Account/Logout" >Deconnexion</a>
+                </DropdownMenu>
+            </Dropdown>
+        </div>
+    }
+</div>
+
+@code
+{
+    void OnCheckProfile()
+    {
+        string authServerUrl = Configuration["AuthServer:Authority"] ?? "";
+        
+        Navigation.NavigateTo($"{authServerUrl.EnsureEndsWith('/')}Account/Manage?returnUrl={Configuration["App:SelfUrl"]}");
+    }
+}

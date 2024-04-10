@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using RaptUx.Localization;
 using RaptUx.MultiTenancy;
 using RaptUx.Permissions;
@@ -39,8 +40,11 @@ public class RaptUxMenuContributor : IMenuContributor
 
     private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
-        var administration = context.Menu.GetAdministration();
-        var l = context.GetLocalizer<RaptUxResource>();
+        ApplicationMenuItem administration = context.Menu.GetAdministration();
+
+        administration.Icon = "icon-name-admin_panel_settings";
+        
+        IStringLocalizer l = context.GetLocalizer<RaptUxResource>();
 
         context.Menu.Items.Insert(
             0,
@@ -48,7 +52,7 @@ public class RaptUxMenuContributor : IMenuContributor
                 RaptUxMenus.Home,
                 l["Menu:Home"],
                 "/",
-                icon: "fas fa-home",
+                icon: "icon-name-home",
                 order: 0
             )
         );
@@ -59,7 +63,7 @@ public class RaptUxMenuContributor : IMenuContributor
                 RaptUxMenus.Challenges,
                 l["Menu:Challenges"],
                 "/challenges",
-                icon: "fas fa-rocket",
+                icon: "icon-name-library_books",
                 order: 1
             )
         );
@@ -67,25 +71,25 @@ public class RaptUxMenuContributor : IMenuContributor
         context.Menu.Items.Insert(
             2,
             new ApplicationMenuItem(
-                RaptUxMenus.Profile,
-                l["Menu:Profile"],
-                "/my-profile",
-                icon: "fas fa-user",
+                RaptUxMenus.Courses,
+                l["Menu:Courses"],
+                "/courses",
+                icon: "icon-name-school",
                 order: 2
-            ).RequireAuthenticated()
+            )
         );
 
-        if (MultiTenancyConsts.IsEnabled)
-        {
-            administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
-        }
-        else
-        {
-            administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
-        }
+        // if (MultiTenancyConsts.IsEnabled)
+        // {
+        //     administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
+        // }
+        // else
+        // {
+        //     administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
+        // }
 
-        administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
-        administration.SetSubItemOrder(SettingManagementMenus.GroupName, 3);
+        // administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
+        // administration.SetSubItemOrder(SettingManagementMenus.GroupName, 3);
 
         context.Menu.GetAdministration()
             .AddItem(new ApplicationMenuItem(

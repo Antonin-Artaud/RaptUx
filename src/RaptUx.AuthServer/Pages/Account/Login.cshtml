@@ -1,0 +1,77 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Volo.Abp.AspNetCore.Mvc.UI
+@addTagHelper *, Volo.Abp.AspNetCore.Mvc.UI.Bootstrap
+@addTagHelper *, Volo.Abp.AspNetCore.Mvc.UI.Bundling
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.Account.Localization
+@using Volo.Abp.Account.Settings
+@using Volo.Abp.Settings
+
+@model RaptUx.Pages.Account.CustomLoginModel
+
+@inject IHtmlLocalizer<AccountResource> L
+@inject Volo.Abp.Settings.ISettingProvider SettingProvider
+
+<div class="text-center">
+    <h1 class="title-font">Chaque mois, de nouveaux défis et ressources pour développer <span class="violet-color">vos compétences.</span></h1>
+    <div class="card auth-card mt-3 shadow-sm rounded">
+        <div class="card-body abp-background">
+            <img class="mb-1" style="width: 50%" src="../Pages/Account/assets/logo/logo_yellow.svg" alt="LearnUX logo" />
+            <h6>Bienvenue ! <span class="violet-color">Connectez-vous.</span></h6>
+
+            @if (Model.EnableLocalLogin)
+            {
+                <form method="post" class="mt-4" style="text-align: left !important;">
+                    <input asp-for="ReturnUrl"/>
+                    <input asp-for="ReturnUrlHash"/>
+                    <div class="form-group mb-2">
+                        <input asp-for="LoginInput.UserNameOrEmailAddress" class="form-control" placeholder="Email"/>
+                        <span asp-validation-for="LoginInput.UserNameOrEmailAddress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <input asp-for="LoginInput.Password" class="form-control" placeholder="Mot de passe"/>
+                        <span asp-validation-for="LoginInput.Password" class="text-danger"></span>
+                    </div>
+                    <a class="black-color" href="@Url.Page("./ForgotPassword", new {returnUrl = Model.ReturnUrl, returnUrlHash = Model.ReturnUrlHash})">@L["ForgotPassword"]</a>
+                    <abp-input asp-for="LoginInput.RememberMe" class="text-black"/>
+                    <abp-button type="submit" button-type="Primary" name="Action" value="Login" class="btn-block btn-lg mt-3 yellow-bg auth-form-button">@L["Login"]</abp-button>
+                    @if (Model.ShowCancelButton)
+                    {
+                        <abp-button type="submit" button-type="Secondary" formnovalidate="formnovalidate" name="Action" value="Cancel" class="btn-block btn-lg mt-3">@L["Cancel"]</abp-button>
+                    }
+                </form>
+            }
+            @if (Model.VisibleExternalProviders.Any())
+            {
+                <div class="mt-2">
+                    <h5>@L["OrLoginWith"]</h5>
+                    <form asp-page="./Login" asp-page-handler="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" asp-route-returnUrlHash="@Model.ReturnUrlHash" method="post">
+                        <input asp-for="ReturnUrl"/>
+                        <input asp-for="ReturnUrlHash"/>
+                        @foreach (var provider in Model.VisibleExternalProviders)
+                        {
+                            <button type="submit" class="btn btn-primary m-1" name="provider" value="@provider.AuthenticationScheme" title="@L["GivenTenantIsNotAvailable", provider.DisplayName]">@provider.DisplayName</button>
+                        }
+                    </form>
+                </div>
+            }
+            @if (!Model.EnableLocalLogin && !Model.VisibleExternalProviders.Any())
+            {
+                <div class="alert alert-warning">
+                    <strong>@L["InvalidLoginRequest"]</strong>
+                    @L["ThereAreNoLoginSchemesConfiguredForThisClient"]
+                </div>
+            }
+        </div>
+    </div>
+    @if (await SettingProvider.IsTrueAsync(AccountSettingNames.IsSelfRegistrationEnabled))
+    {
+        <br/>
+        <strong>
+            Nouveau sur la platform ?
+            <a href="@Url.Page("./Register", new {returnUrl = Model.ReturnUrl, returnUrlHash = Model.ReturnUrlHash})" class="text-decoration-none violet-color">Inscrivez-vous.</a>
+        </strong>
+    }
+</div>
