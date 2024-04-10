@@ -16,7 +16,7 @@ public class ChallengeDto : EntityDto<Guid>
     public string Category { get; set; } = string.Empty;
     public DateTime AvailabilityDate { get; set; }
     
-    public IEnumerable<Guid> UserIds { get; set; } = new List<Guid>();
-    public IEnumerable<CourseDto> Courses { get; set; } = new List<CourseDto>();
-    public IEnumerable<ProjectDto> Projects { get; set; } = new List<ProjectDto>();
+    public List<Guid> UserIds { get; set; } = [];
+    public List<CourseDto> Courses { get; set; } = [];
+    public List<ProjectDto> Projects { get; set; } = [];
 }
