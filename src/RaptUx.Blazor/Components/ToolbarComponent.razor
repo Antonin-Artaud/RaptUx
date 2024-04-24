@@ -19,7 +19,7 @@
     @if (!CurrentUser.IsAuthenticated)
     {
         <div class="col-1">
-            <a class="nav-link register-button bold" role="button" href="Account/Register">Inscription</a>
+            <a class="nav-link register-button bold" role="button" @onclick="OnRegister">Inscription</a>
         </div>
         <div class="col-1">
             <a class="nav-link login-button bold text-white" role="button" href="Account/Login">Connexion</a>
@@ -50,5 +50,12 @@
         string authServerUrl = Configuration["AuthServer:Authority"] ?? "";
         
         Navigation.NavigateTo($"{authServerUrl.EnsureEndsWith('/')}Account/Manage?returnUrl={Configuration["App:SelfUrl"]}");
+    }
+
+    void OnRegister()
+    {
+        string authServerUrl = Configuration["AuthServer:Authority"] ?? "";
+        
+        Navigation.NavigateTo($"{authServerUrl.EnsureEndsWith('/')}Account/Register?returnUrl={Configuration["App:SelfUrl"]}");
     }
 }
