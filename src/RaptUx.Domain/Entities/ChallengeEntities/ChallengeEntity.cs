@@ -16,7 +16,7 @@ public class ChallengeEntity : Entity<Guid>
     public string Category { get; set; } = string.Empty;
     public DateTime AvailabilityDate { get; set; }
     
-    public IEnumerable<Guid> UserIds { get; set; } = new List<Guid>();
-    public IEnumerable<CourseEntity> Courses { get; set; } = new List<CourseEntity>();
-    public IEnumerable<ProjectEntity> Projects { get; set; } = new List<ProjectEntity>();
+    public List<Guid> UserIds { get; set; } = [];
+    public List<CourseEntity> Courses { get; set; } = [];
+    public List<ProjectEntity> Projects { get; set; } = [];
 }

@@ -18,8 +18,6 @@ public class ChallengeAppService
 {
     public ChallengeAppService(IRepository<ChallengeEntity, Guid> repository) : base(repository)
     {
-        GetPolicyName = ChallengePermission.Challenges.Default;
-        GetListPolicyName = ChallengePermission.Challenges.Default;
         CreatePolicyName = ChallengePermission.Challenges.Create;
         UpdatePolicyName = ChallengePermission.Challenges.Edit;
         DeletePolicyName = ChallengePermission.Challenges.Delete;
