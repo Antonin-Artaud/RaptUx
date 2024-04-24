@@ -1,0 +1,58 @@
+﻿@using RaptUx.Challenges
+@inject IChallengeAppService ChallengeService
+
+<section id="monthly_challenge" class="mt-4">
+    <h1 class="title-font">Challenge du mois</h1>
+    <p>Découvrez notre challenge du mois conçus pour mettre à l'épreuve vos compétences en UX, développer votre créativité et vous inspirer dans votre parcours d'apprentissage.</p>
+    <div class="col-12 user-card max-height-20em">
+        @if (Challenge != null)
+        {
+            <div class="row">
+                <div class="col-4" style="padding-left: 0">
+                    <img class="max-height-20em challenge-illustration" src="svgs/raptor.svg" alt="challenge_illustration"/>
+                </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-12" style="padding-top: 1em">
+                            <h4 class="bold">@Challenge?.Title</h4>
+                        </div>
+                        <div class="col-12">
+                            <p class="challenge-description line-clamp-5 color-grey">@Challenge?.Description</p>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <a type="button" class="join-challenge-button" href="/challenges/@Challenge.Id">Participer</a>
+                            </div>
+                            <div class="col-6">
+                                <p class="violet-color bold">@Challenge?.GetCategoryDisplayName()</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <h2>Aucun challenge du mois</h2>
+        }
+    </div>
+</section>
+
+@code {
+    private ChallengeDto? Challenge { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        try
+        {
+            Challenge = await ChallengeService.GetMonthlyChallengeAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Une erreur s'est produite : {e}");
+        }
+    }
+
+}

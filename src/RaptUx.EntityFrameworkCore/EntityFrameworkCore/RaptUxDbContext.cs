@@ -90,10 +90,10 @@ public class RaptUxDbContext :
             
             b.Property(c => c.ImageUrl).IsRequired().HasMaxLength(255);
             b.Property(c => c.Title).IsRequired().HasMaxLength(255);
-            b.Property(c => c.Description).IsRequired().HasMaxLength(255);
-            b.Property(c => c.Context).IsRequired().HasMaxLength(255);
-            b.Property(c => c.Details).IsRequired().HasMaxLength(255);
-            b.Property(c => c.Category).IsRequired().HasMaxLength(255);
+            b.Property(c => c.Description).IsRequired();
+            b.Property(c => c.Context).IsRequired();
+            b.Property(c => c.Details).IsRequired();
+            b.Property(c => c.Category).IsRequired();
             b.Property(c => c.AvailabilityDate).IsRequired();
 
             b.HasMany(c => c.Courses);
@@ -107,7 +107,7 @@ public class RaptUxDbContext :
             
             b.Property(c => c.Title).IsRequired().HasMaxLength(255);
             b.Property(c => c.Link).IsRequired().HasMaxLength(255);
-            b.Property(c => c.Description).IsRequired().HasMaxLength(255);
+            b.Property(c => c.Description).IsRequired();
         });
         
         builder.Entity<GradeEntity>(b =>

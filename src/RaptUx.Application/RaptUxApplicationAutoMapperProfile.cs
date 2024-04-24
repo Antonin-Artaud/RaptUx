@@ -25,5 +25,6 @@ public class RaptUxApplicationAutoMapperProfile : Profile
         
         CreateMap<ProjectEntity, ProjectDto>();
         CreateMap<CreateUpdateProjectDto, ProjectEntity>();
+        CreateMap<ProjectDto, ProjectEntity>();
     }
 }

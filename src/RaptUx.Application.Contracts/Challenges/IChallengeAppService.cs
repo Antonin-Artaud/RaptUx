@@ -1,4 +1,6 @@
 using System;
+using System.Threading.Tasks;
+using RaptUx.Projects;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
@@ -12,5 +14,6 @@ public interface IChallengeAppService
         CreateUpdateChallengeDto
     >
 {
-    
+    public Task<ChallengeDto?> GetMonthlyChallengeAsync();
+    public Task AddProject(Guid challengeId, ProjectDto project);
 }

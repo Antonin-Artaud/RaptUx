@@ -19,4 +19,6 @@ public class ChallengeDto : EntityDto<Guid>
     public List<Guid> UserIds { get; set; } = [];
     public List<CourseDto> Courses { get; set; } = [];
     public List<ProjectDto> Projects { get; set; } = [];
+
+    public string GetCategoryDisplayName() => ((ChallengeCategoryEnum)int.Parse(Category)).ToString();
 }

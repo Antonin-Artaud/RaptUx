@@ -11,4 +11,13 @@ public class ProjectDto : EntityDto<Guid>
     public string Description { get; set; } = string.Empty;
     public int Likes { get; set; } = 0;
     public Guid ChallengeId { get; set; } = Guid.Empty;
+
+    public static ProjectDto Create(Guid challengeId, string link, string description) =>
+        new()
+        {
+            ChallengeId = challengeId,
+            Link = link,
+            Description = description,
+            Likes = 0,
+        };
 }
