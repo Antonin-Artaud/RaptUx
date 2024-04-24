@@ -746,11 +746,17 @@ namespace RaptUx.Migrations
                     Link = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Likes = table.Column<int>(type: "int", nullable: false),
-                    ChallengeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ChallengeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ChallengeEntityId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AppProjects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppProjects_AppChallenges_ChallengeEntityId",
+                        column: x => x.ChallengeEntityId,
+                        principalTable: "AppChallenges",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_AppProjects_AppChallenges_ChallengeId",
                         column: x => x.ChallengeId,
@@ -1056,6 +1062,11 @@ namespace RaptUx.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AppCourses_ChallengeEntityId",
                 table: "AppCourses",
+                column: "ChallengeEntityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppProjects_ChallengeEntityId",
+                table: "AppProjects",
                 column: "ChallengeEntityId");
 
             migrationBuilder.CreateIndex(

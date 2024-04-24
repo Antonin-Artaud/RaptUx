@@ -6,7 +6,11 @@
         let logoContainer = element.children[0];
         
         if (logoContainer.classList[1] != null) {
-            logoContainer.textContent = logoContainer.classList[1].replace("icon-name-", '');
+            if (logoContainer.classList[1].includes("icon-name-")) {
+                logoContainer.textContent = logoContainer.classList[1].replace("icon-name-", '');
+            } else {
+                logoContainer.textContent = 'shield';
+            }
         }
         
         logoContainer.className += " material-symbols-outlined";

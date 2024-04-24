@@ -6,6 +6,8 @@
     --light-purple-color: #CD9BF5;
     --yellow-color : #F4D955;
     --grey-color: #E1E3EB;
+    --text-grey: #9E9E9E;
+    --green-color: #00cdb8;
 }
 
 @font-face {
@@ -25,6 +27,18 @@ body {
 
 .color-white {
     color: var(--text-white);
+}
+
+.color-grey {
+    color: var(--text-grey);
+}
+
+.violet-color {
+    color: var(--dark-purple);
+}
+
+.color-black {
+    color: var(--text-black);
 }
 
 #blazor-error-ui {
@@ -102,12 +116,36 @@ body {
     color: var(--text-black)!important;
 }
 
+.purple-bg {
+    background-color: var(--dark-purple);
+}
+
 .light-purple-bg {
     background-color: var(--light-purple-color);
 }
 
+.green-bg {
+    background-color: var(--green-color);
+}
+
+.purple-button {
+    background-color: var(--dark-purple) !important;
+    color: var(--text-white);
+    width: 90%;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    border-radius: 15px;
+    margin-top: 1em;
+    padding: 0.5em
+}
+
 .yellow-bg {
     background-color: var(--yellow-color);
+}
+
+.white-bg {
+    background-color: var(--text-white);
 }
 
 .lpx-topbar {
@@ -167,4 +205,71 @@ body {
 
 .content-right {
     justify-content: right;
+}
+
+.challenge-illustration {
+    border-radius: 15px 0 0 15px;
+}
+
+.challenge-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-5 {
+ line-clamp: 5 !important;   
+}
+
+.max-height-15em {
+    max-height: 15em;
+}
+
+.max-height-20em {
+    max-height: 20em;
+}
+
+.limit-width {
+    width: 15em;
+    height: 15em;
+}
+
+.join-challenge-button {
+    color: var(--text-black);
+    background-color: var(--yellow-color);
+    padding: 1em;
+    border-radius: 15px;
+    text-decoration: none;
+}
+
+.no-decoration {
+    text-decoration: none;
+    color: var(--text-black);
+    cursor: pointer;
+}
+
+.no-decoration:hover {
+    color: var(--text-black);
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.rounded {
+    border-radius: 20px!important;
+}
+
+.project-modal {
+    background-image: url("./images/modal_bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 3em;
+}
+
+.project-modal input {
+    border: none;
+    border-bottom: 1px solid var(--grey-color);
+    width: 100%;
 }

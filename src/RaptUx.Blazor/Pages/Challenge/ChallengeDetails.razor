@@ -1,0 +1,147 @@
+﻿@page "/challenges/{ChallengeId}"
+@using Blazorise.Snackbar
+@using RaptUx.Challenges
+@using RaptUx.Projects
+@using RaptUx.Blazor.Components
+@inherits RaptUxComponentBase
+@inject IChallengeAppService ChallengeService
+@inject IProjectAppService ProjectService
+
+<title>LearnUX - Détail challenge</title>
+
+<section id="challenge-details" class="container">
+    @if (Challenge != null)
+    {
+        <div class="mb-4">
+            <p class="bold color-grey uppercase">détail du challenge</p>
+            <h1 class="title-font">@Challenge.Title</h1>
+            <p class="violet-color bold">@Challenge.GetCategoryDisplayName()</p>
+        </div>
+        <div style="margin-top: 5em">
+            <h3 class="title-font">Description du besoin</h3>
+            <p>@Challenge.Description</p>
+        </div>
+        <div>
+            <h3 class="title-font mt-1">Contexte</h3>
+            <p>@Challenge.Context</p>
+        </div>
+        <div style="margin-bottom: 5em">
+            <h3 class="title-font mt-1">Challenge</h3>
+            <p>@Challenge.Details</p>
+        </div>
+        
+        @if (CurrentUser.IsAuthenticated)
+        {
+            @if (IsUserProjectExist)
+            {
+                <div class="green-bg color-white rounded" style="padding: 3em">
+                    <h3 class="bold">Votre projet à bien été ajouté</h3>
+                    <div style="text-align: center">
+                        <span class="material-symbols-outlined color-white" style="font-size: 5em">task_alt</span>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="purple-bg color-white rounded" style="padding: 3em">
+                    <h3 class="bold">Pour envoyer ton projet c'est ici que ça se passe</h3>
+                    <p>Partagez vos résultats. <br/> Une fois le challenge terminé, publiez votre travail ici :</p>
+                    <br/>
+                    <a class="rounded no-decoration white-bg bold" @onclick="@ShowModal" style="padding: 1em">Envoyer</a>
+                </div>
+            }
+        }
+        else
+        {
+            <RegistrationCardComponent />
+        }
+    }
+    else
+    {
+        <h1 class="violet-color title-font">Une erreur est survenue, veuillez rééssayer plus tard.</h1>
+    }
+
+    <Modal @ref="modalRef">
+        <ModalContent Centered Class="project-modal" Size="ModalSize.ExtraLarge">
+            <div class="row">
+                <div class="col-8">
+                    <h4 class="mb-3">Envoyez votre fichier <span class="violet-color">(Max 5Go)</span></h4>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="bold">Fichier du projet</p>
+                            <span class="material-symbols-outlined color-grey" style="font-size: 5em; margin-left: 1em">file_download</span>
+                            <p>Glissez ou déposez votre fichier</p>
+                            <p class="color-grey">ou cliquez ici pour déposer</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="bold">Image de présentation</p>
+                            <span class="material-symbols-outlined color-grey" style="font-size: 5em;margin-left: 1em">file_download</span>
+                            <p>Glissez ou déposez votre fichier</p>
+                            <p class="color-grey">ou cliquez ici pour déposer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <h5 style="margin-bottom: 2em"><span class="violet-color bold">ou</span> mettez le lien de votre prototype <br/> C'est 100% gratuit !</h5>
+                    
+                    <p>Lien du prototype</p>
+                    <input placeholder="(Optionnel)" style="margin-bottom: 2em" @bind="@ProjectLink"/>
+
+                    <p>Description du projet</p>
+                    <input style="margin-bottom: 2em" required @bind="@ProjectDescription"/>
+                </div>
+            </div>
+            <div style="white-space: nowrap; width: 2em; margin-top: 5em">
+                <input type="checkbox" id="accept" @bind="@IsUsingConditionAccept"/>
+                <label for="accept">J'accepte les <strong>conditions d'utilisation</strong></label>
+            </div>
+            <br/>
+            <input type="button" class="rounded purple-bg color-white mt-2" @onclick="OnSubmitProject" style="width: fit-content; padding: 0.5em 2em 0.5em 2em" value="Envoyer"/>
+        </ModalContent>
+    </Modal>
+
+    <SnackbarStack @ref="snackbarStack" Location="SnackbarStackLocation.TopEnd" />
+</section>
+
+@code
+{
+    [Parameter]
+    public string ChallengeId { get; set; }
+
+    private SnackbarStack snackbarStack;
+    private double intervalBeforeMsgClose = 2000;
+    private ChallengeDto? Challenge { get; set; }
+    private string ProjectLink { get; set; }
+    private string ProjectDescription { get; set; }
+    private bool IsUsingConditionAccept { get; set; }
+    private Modal modalRef;
+    public bool IsUserProjectExist { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        Challenge = await ChallengeService.GetAsync(Guid.Parse(ChallengeId));
+        IsUserProjectExist = await ProjectService.GetUserProjectByChallengeId(Guid.Parse(ChallengeId));
+        
+        await base.OnInitializedAsync();
+    }
+    private Task ShowModal() => modalRef.Show();
+
+    private Task HideModal() => modalRef.Hide();
+
+    private async Task OnSubmitProject()
+    {
+        try
+        {
+            ProjectDto project = ProjectDto.Create(Guid.Parse(ChallengeId), ProjectLink, ProjectDescription);
+        
+            await ChallengeService.AddProject(Guid.Parse(ChallengeId), project);
+
+            await HideModal();
+            await snackbarStack.PushAsync("Le projet à été envoyé avec succès !", SnackbarColor.Success, options => {options.IntervalBeforeClose = intervalBeforeMsgClose;});
+        }
+        catch (Exception)
+        {
+            await snackbarStack.PushAsync("Une erreur est survenue durant l'envoie du projet !", SnackbarColor.Danger, options => {options.IntervalBeforeClose = intervalBeforeMsgClose;});
+        }
+    }
+}

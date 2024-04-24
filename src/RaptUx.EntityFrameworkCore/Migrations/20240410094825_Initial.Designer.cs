@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace RaptUx.Migrations
 {
     [DbContext(typeof(RaptUxDbContext))]
-    [Migration("20240327134936_init")]
-    partial class init
+    [Migration("20240410094825_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,6 +1,52 @@
-﻿@namespace RaptUx.Blazor.Components
+﻿@using RaptUx.Courses
+@using Volo.Abp.Application.Dtos
+@namespace RaptUx.Blazor.Components
+@inject ICourseAppService CoursesService
 
-<section id="recommendations">
+<section id="recommendations" class="mt-4">
     <h1 class="title-font">N’hésitez pas à jeter un oeil sur nos recommandations</h1>
     <p>Venez découvrir les vidéos, les tutos qui vous permettrons de mener à bien votre projet</p>
+    
+    <div class="row">
+        @foreach (CourseDto course in Courses)
+        {
+            <a class="col-6 user-card max-height-15em" href=@course.Link style="text-decoration: none">
+                <div class="row">
+                    <div class="col-5" style="padding-left: 0">
+                        <img class="challenge-illustration limit-width" src=@($"https://img.youtube.com/vi/{course.GetVideoId()}/hqdefault.jpg") alt="course_illustration"/>
+                    </div>
+                    <div class="col-7">
+                        <div class="row">
+                            <div class="col-12" style="padding-top: 1em">
+                                <h4 class="color-black bold">@course.Title</h4>
+                            </div>
+                            <div class="col-12">
+                                <p class="line-clamp-5  challenge-description color-grey">@course.Description</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
 </section>
+
+@code
+{
+    private IReadOnlyList<CourseDto> Courses { get; set; } = new List<CourseDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        try
+        {
+            PagedResultDto<CourseDto> results = await CoursesService.GetListAsync(new PagedAndSortedResultRequestDto());
+            Courses = results.Items;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Une erreur s'est produite : {e}");
+        }
+    }
+}

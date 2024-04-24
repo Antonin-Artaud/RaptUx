@@ -1,10 +1,55 @@
-﻿@namespace RaptUx.Blazor.Components
+﻿@using RaptUx.Challenges
+@using Volo.Abp.Application.Dtos
+@namespace RaptUx.Blazor.Components
+@inject IChallengeAppService ChallengeService
 
-<section id="challenges">
+<section id="challenges" class="mt-4">
     <h1 class="title-font">Les challenges</h1>
     <p>Découvrez notre sélection de challenges uniques et stimulants conçus pour mettre à l'épreuve vos compétences en UX, développer votre créativité et vous inspirer dans votre parcours d'apprentissage.</p>
-            
-    <div>
-            
+    <div class="row">
+        @foreach (ChallengeDto challenge in Challenges)
+        {
+            <a class="no-decoration col-6 user-card max-height-15em" href="/challenges/@challenge.Id">
+                    <div class="row">
+                        <div class="col-5" style="padding-left: 0">
+                            <img class="max-height-15em challenge-illustration" src="svgs/raptor.svg" alt="challenge_illustration"/>
+                        </div>
+                        <div class="col-7">
+                            <div class="row">
+                                <div class="col-12" style="padding-top: 1em">
+                                    <h4 class="bold">@challenge.Title</h4>
+                                </div>
+                                <div class="col-12">
+                                    <p class="challenge-description color-grey">@challenge.Description</p>
+                                </div>
+                                <div class="col-12">
+                                    <p class="violet-color bold">@challenge.GetCategoryDisplayName()</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </a>
+        }
     </div>
 </section>
+
+@code
+{
+    private IReadOnlyList<ChallengeDto> Challenges { get; set; } = new List<ChallengeDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        try
+        {
+            PagedResultDto<ChallengeDto> results = await ChallengeService.GetListAsync(new PagedAndSortedResultRequestDto());
+
+            Challenges = results.Items;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Une erreur s'est produite : {e}");
+        }
+    }
+}

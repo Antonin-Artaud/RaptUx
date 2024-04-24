@@ -104,6 +104,27 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 postLogoutRedirectUri: $"{blazorServerTieredRootUrl}signout-callback-oidc"
             );
         }
+        
+        // Swagger Client
+        var swaggerClientId = configurationSection["RaptUx_Swagger:ClientId"];
+        if (!swaggerClientId.IsNullOrWhiteSpace())
+        {
+            var swaggerRootUrl = configurationSection["RaptUx_Swagger:RootUrl"]?.TrimEnd('/');
+
+            await CreateApplicationAsync(
+                swaggerClientId!,
+                OpenIddictConstants.ClientTypes.Public,
+                OpenIddictConstants.ConsentTypes.Implicit,
+                "Swagger Application",
+                null,
+                [
+                    OpenIddictConstants.GrantTypes.AuthorizationCode
+                ],
+                commonScopes,
+                redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
+                clientUri: swaggerRootUrl
+            );
+        }
 
     }
 

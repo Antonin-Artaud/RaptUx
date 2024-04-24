@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace RaptUx.Migrations
 {
     [DbContext(typeof(RaptUxDbContext))]
-    [Migration("20240327092112_Initial")]
-    partial class Initial
+    [Migration("20240410095918_change_challenges")]
+    partial class change_challenges
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,23 +37,19 @@ namespace RaptUx.Migrations
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Context")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Details")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -136,6 +132,9 @@ namespace RaptUx.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ChallengeEntityId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("ChallengeId")
                         .HasColumnType("uniqueidentifier");
 
@@ -161,6 +160,8 @@ namespace RaptUx.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChallengeEntityId");
 
                     b.HasIndex("ChallengeId");
 
@@ -1904,8 +1905,12 @@ namespace RaptUx.Migrations
 
             modelBuilder.Entity("RaptUx.Entities.ProjectEntities.ProjectEntity", b =>
                 {
-                    b.HasOne("RaptUx.Entities.ChallengeEntities.ChallengeEntity", "Challenge")
+                    b.HasOne("RaptUx.Entities.ChallengeEntities.ChallengeEntity", null)
                         .WithMany("Projects")
+                        .HasForeignKey("ChallengeEntityId");
+
+                    b.HasOne("RaptUx.Entities.ChallengeEntities.ChallengeEntity", "Challenge")
+                        .WithMany()
                         .HasForeignKey("ChallengeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

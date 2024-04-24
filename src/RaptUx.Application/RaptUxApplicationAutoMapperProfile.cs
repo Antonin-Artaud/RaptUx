@@ -4,7 +4,9 @@ using RaptUx.Courses;
 using RaptUx.Entities.ChallengeEntities;
 using RaptUx.Entities.CoursesEntities;
 using RaptUx.Entities.GradeEntities;
+using RaptUx.Entities.ProjectEntities;
 using RaptUx.GradeDtos;
+using RaptUx.Projects;
 
 namespace RaptUx;
 
@@ -20,7 +22,8 @@ public class RaptUxApplicationAutoMapperProfile : Profile
         
         CreateMap<ChallengeEntity, ChallengeDto>();
         CreateMap<CreateUpdateChallengeDto, ChallengeEntity>();
-        
-        
+
+        CreateMap<ProjectEntity, ProjectDto>();
+        CreateMap<ProjectDto, ProjectEntity>();
     }
 }

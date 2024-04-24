@@ -9,24 +9,13 @@
     <div class="container">
         @if (!CurrentUser.IsAuthenticated)
         {
-            <Card Class="light-purple-bg" Style="border-radius: 25px">
-                <CardBody Style="padding: 0; display: flex">
-                    <div style="width: 55%; text-align: left; padding: 1.5em 5em">
-                        <h1 class="title-font">Vous aussi, venez rugir l’expérience utilsateur</h1>
-                        <CardText>Bienvenue sur learn UX, la plateforme d’apprentissage UX et UI adaptée à tout les niveaux. Alors rejoignez les autres challengers et montrer votre talent créatif à tous.</CardText>
-                        <Button Size="Size.Small" Class="yellow-bg" Style="position: absolute; bottom: 1.5em; border-radius: 20px; width: 9em">S'inscrire</Button>
-                    </div>
-                    <div>
-                        <img src="svgs/illustration.svg" alt="illustration"/>
-                    </div>
-                </CardBody>
-            </Card>
+            <RegistrationCardComponent />
             <section id="what-is-it" class="mt-5">
                 <h1 class="title-font">Learn UX c'est quoi ?</h1>
                 <p>Learn UX est une plateforme d’apprentissage où tout le monde peut participer. Les débutants, les experts ou même les curieux de design peuvent participer et user de leur créativité dans différents défis ludique et amusants. Alors n’aies pas peur de venir te challenger, tu seras peut-être le prochain récompensé.</p>
             </section>
             <ChallengesSectionComponent/>
-            <RecommendationsSectionComponent/>
+            
         }
         else
         {
@@ -44,8 +33,8 @@
                             <div class="col-6 row content-right">
                                 @for (int i = 0; i < TagUris.Count; i++)
                                 {
-                                    <div class="col-3 content-right">
-                                        <img src="@TagUris[i]" alt="@($"lvl{i + 1}")"/>
+                                    <div class="col-2" style="padding: 0; text-align: center">
+                                        <img src="@TagUris[i]" alt="@($"lvl{i + 1}")" height="50"/>
                                         <p>Niveau @(i + 1)</p>
                                     </div>
                                 }
@@ -55,24 +44,26 @@
                     <div class="col-12">
                         <div class="row">
                             <div class="col-6">
-                                <a type="button">Mon profil</a>
+                                <a type="button" class="purple-button">Mon profil</a>
                             </div>
                             <div class="col-6">
-                                <a type="button">Mon classement</a>
+                                <a type="button" class="purple-button">Mon classement</a>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <a type="button">Defis en cours</a>
+                                <a type="button" class="purple-button">Defis en cours</a>
                             </div>
                             <div class="col-6">
-                                <a type="button">Mes badges</a>
+                                <a type="button" class="purple-button">Mes badges</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <MonthyChallengeComponent />
         }
+        <RecommendationsSectionComponent/>
     </div>
 </section>
 
